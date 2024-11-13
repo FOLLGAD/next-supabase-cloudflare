@@ -22,15 +22,15 @@ import { sanitizeUIMessages } from "./utils";
 
 const suggestedActions = [
   {
-    title: "What are my last 5 transactions?",
-    label: "And what is the total amount?",
-    action: "What are my last 5 transactions? And what is the total amount?",
+    title: "What are the latest news...",
+    label: "in the world of AI?",
+    action: "What are the latest news in the world of AI?",
   },
   {
-    title: "What are the rules for enklare förtäring",
-    label: "versus regular representation?",
+    title: "What's new in...",
+    label: "React 19",
     action:
-      "What are the rules for enklare förtäring versus regular representation?",
+      "What's new in React 19? What's the difference between React 18 and React 19?",
   },
 ];
 

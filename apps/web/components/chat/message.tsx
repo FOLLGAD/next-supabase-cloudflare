@@ -1,6 +1,7 @@
 "use client";
 
 import type { Message } from "ai";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { ChevronDownIcon, SearchIcon } from "lucide-react";
 
@@ -28,6 +29,51 @@ export const PreviewMessage = ({
   vote: Vote | undefined;
   isLoading: boolean;
 }) => {
+  const toolInvocations = useMemo(
+    () =>
+      message.toolInvocations?.map((toolInvocation) => {
+        const { toolName, toolCallId, state, args } = toolInvocation;
+
+        if (state === "result") {
+          const { result } = toolInvocation;
+
+          return (
+            <Collapsible key={toolCallId} className="group/collapsible">
+              <CollapsibleTrigger className="flex flex-row items-center gap-2">
+                <div className="flex flex-row items-center gap-2">
+                  <span className="text-muted-foreground">
+                    {toolName.replace(/^./, (f) => f.toUpperCase())}
+                  </span>
+                </div>
+                <ChevronDownIcon
+                  size={14}
+                  className="size-4 transition-transform group-data-[state=open]/collapsible:rotate-180"
+                />
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <pre className="flex max-h-32 flex-col gap-4 overflow-auto text-sm">
+                  {JSON.stringify(result, null, 2)}
+                </pre>
+              </CollapsibleContent>
+            </Collapsible>
+          );
+        } else {
+          return (
+            <div key={toolCallId} className={"skeleton"}>
+              Searching...
+            </div>
+          );
+        }
+      }),
+    [message.toolInvocations],
+  );
+  const isToolUse = !!toolInvocations?.length;
+  const icon = isToolUse ? (
+    <SearchIcon size={14} />
+  ) : (
+    <SparklesIcon size={14} />
+  );
+
   return (
     <motion.div
       className="group/message mx-auto w-full max-w-3xl px-4"
@@ -42,7 +88,7 @@ export const PreviewMessage = ({
       >
         {message.role === "assistant" && (
           <div className="flex size-8 shrink-0 items-center justify-center rounded-full ring-1 ring-border">
-            <SparklesIcon size={14} />
+            {icon}
           </div>
         )}
 
@@ -53,43 +99,9 @@ export const PreviewMessage = ({
             </div>
           )}
 
-          {message.toolInvocations && message.toolInvocations.length > 0 && (
-            <div className="flex flex-col gap-4">
-              {message.toolInvocations.map((toolInvocation) => {
-                const { toolName, toolCallId, state, args } = toolInvocation;
-
-                if (state === "result") {
-                  const { result } = toolInvocation;
-
-                  return (
-                    <Collapsible className="group/collapsible">
-                      <CollapsibleTrigger className="flex flex-row items-center gap-2">
-                        <div className="flex flex-row items-center gap-2">
-                          <SearchIcon size={14} />
-                          <span className="text-muted-foreground">
-                            {toolName.replace(/^./, (f) => f.toUpperCase())}
-                          </span>
-                        </div>
-                        <ChevronDownIcon
-                          size={14}
-                          className="size-4 transition-transform group-data-[state=open]/collapsible:rotate-180"
-                        />
-                      </CollapsibleTrigger>
-                      <CollapsibleContent>
-                        <pre className="flex max-h-32 flex-col gap-4 overflow-auto text-sm">
-                          {JSON.stringify(result, null, 2)}
-                        </pre>
-                      </CollapsibleContent>
-                    </Collapsible>
-                  );
-                } else {
-                  return (
-                    <div key={toolCallId} className={"skeleton"}>
-                      Searching...
-                    </div>
-                  );
-                }
-              })}
+          {toolInvocations && toolInvocations.length > 0 && (
+            <div key="tool-invocations" className="flex flex-col gap-4">
+              {toolInvocations}
             </div>
           )}
 

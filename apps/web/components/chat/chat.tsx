@@ -47,10 +47,29 @@ export function Chat({
   const [attachments, setAttachments] = useState<Attachment[]>([]);
 
   return (
-    <div className="relative flex h-full flex-col">
+    <div className="relative flex h-full flex-1 flex-col">
+      <form className="pointer-events-none absolute bottom-0 left-0 right-0 px-4 py-4 md:py-6">
+        <div className="pointer-events-auto mx-auto w-full md:max-w-3xl">
+          <MultimodalInput
+            className="shadow-lg"
+            chatId={id}
+            input={input}
+            setInput={setInput}
+            handleSubmit={handleSubmit}
+            isLoading={isLoading}
+            stop={stop}
+            attachments={attachments}
+            setAttachments={setAttachments}
+            messages={messages}
+            setMessages={setMessages}
+            append={append}
+          />
+        </div>
+      </form>
+
       <div
         ref={messagesContainerRef}
-        className="flex min-w-0 flex-1 flex-col gap-6 overflow-y-scroll pb-24 pt-4"
+        className="flex min-w-0 flex-1 flex-col gap-6 overflow-y-scroll pt-4"
       >
         {messages.length === 0 && <Overview />}
 
@@ -74,28 +93,9 @@ export function Chat({
 
         <div
           ref={messagesEndRef}
-          className="min-h-[24px] min-w-[24px] shrink-0"
+          className="min-h-[24px] min-w-[24px] shrink-0 pb-32"
         />
       </div>
-
-      <form className="pointer-events-none absolute bottom-0 left-0 right-0 px-4 py-4 md:py-6">
-        <div className="mx-auto w-full md:max-w-3xl">
-          <MultimodalInput
-            className="pointer-events-auto"
-            chatId={id}
-            input={input}
-            setInput={setInput}
-            handleSubmit={handleSubmit}
-            isLoading={isLoading}
-            stop={stop}
-            attachments={attachments}
-            setAttachments={setAttachments}
-            messages={messages}
-            setMessages={setMessages}
-            append={append}
-          />
-        </div>
-      </form>
     </div>
   );
 }

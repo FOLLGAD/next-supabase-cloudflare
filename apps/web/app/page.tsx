@@ -4,7 +4,7 @@ export const runtime = "edge";
 
 export default function HomePage() {
   return (
-    <main className="container min-h-screen">
+    <main className="container flex h-screen flex-col">
       <Chat />
     </main>
   );
