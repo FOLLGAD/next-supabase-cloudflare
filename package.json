@@ -1,0 +1,33 @@
+{
+  "name": "polaris",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "clean": "git clean -xdf node_modules",
+    "clean:ws": "turbo run clean",
+    "dev": "turbo dev -F @polaris/frontend...",
+    "lint": "turbo lint",
+    "lint:ws": "bunx sherif@latest",
+    "postinstall": "bun run lint:ws",
+    "typecheck": "turbo run typecheck",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "ui-add": "turbo run ui-add",
+    "generate": "bun run --filter @polaris/db generate",
+    "migrate": "bun run --filter @polaris/db migrate"
+  },
+  "devDependencies": {
+    "@polaris/prettier-config": "*",
+    "prettier": "^3.3.3",
+    "turbo": "^2.2.3",
+    "typescript": "^5.5.4"
+  },
+  "engines": {
+    "node": ">=20.16.0"
+  },
+  "packageManager": "bun@1.1.33",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "tooling/*"
+  ]
+}

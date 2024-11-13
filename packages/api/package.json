@@ -1,0 +1,40 @@
+{
+  "name": "@polaris/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "dev": "tsc",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.658.1",
+    "@aws-sdk/s3-request-presigner": "^3.658.1",
+    "@polaris/db": "*",
+    "@supabase/supabase-js": "^2.45.4",
+    "@trpc/server": "^11.0.0-rc.477",
+    "gocardless-nodejs": "^4.0.0",
+    "superjson": "2.2.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@polaris/eslint-config": "*",
+    "@polaris/prettier-config": "*",
+    "@polaris/tsconfig": "*",
+    "eslint": "^9.9.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4"
+  },
+  "prettier": "@polaris/prettier-config"
+}

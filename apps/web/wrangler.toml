@@ -1,0 +1,10 @@
+name = "polaris"
+compatibility_date = "2024-10-22"
+compatibility_flags = [ "nodejs_compat_v2" ]
+pages_build_output_dir = ".vercel/output/static"
+
+[vars]
+# NEXT_PUBLIC_APP_URL = "https://app.usepolaris.co"
+# NEXT_PUBLIC_APP_URL = "https://polaris-frontend.pages.dev"
+# NEXT_PUBLIC_SUPABASE_URL="https://pdjmxiwvsdkjtntsbrip.supabase.co"
+# NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBkam14aXd2c2RranRudHNicmlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjY4MzIyMTEsImV4cCI6MjA0MjQwODIxMX0.rpJPB3ZKeIPl-MC6vxsfYTBo2GBFTRcpXcavx-IVONg"

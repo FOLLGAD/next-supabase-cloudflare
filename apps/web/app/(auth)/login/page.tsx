@@ -1,0 +1,50 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { ChevronLeft } from "lucide-react";
+
+import { cn } from "@polaris/ui";
+import { buttonVariants } from "@polaris/ui/button";
+
+import { getAuthUser } from "~/app/utils/supabase/server";
+import { Logo } from "~/components/Logo";
+import UserAuthForm from "~/components/UserAuthForm";
+
+export const metadata: Metadata = {
+  title: "Login",
+  description: "Login to your account",
+};
+
+export default async function LoginPage() {
+  const user = await getAuthUser();
+
+  if (user) {
+    redirect("/");
+  }
+
+  return (
+    <div className="container flex h-screen flex-col items-center justify-center">
+      <Link
+        href="/"
+        className={cn(
+          buttonVariants({ variant: "ghost" }),
+          "absolute left-4 top-4 md:left-8 md:top-8",
+        )}
+      >
+        <>
+          <ChevronLeft className="mr-2 h-4 w-4" />
+          Back
+        </>
+      </Link>
+      <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+        <div className="flex flex-col space-y-2 text-center">
+          <Logo className="mx-auto h-6 w-6" />
+          <h1 className="text-2xl font-semibold tracking-tight">
+            Welcome back
+          </h1>
+        </div>
+        <UserAuthForm />
+      </div>
+    </div>
+  );
+}
