@@ -10,6 +10,8 @@ import { getAuthUser } from "~/app/utils/supabase/server";
 import { Logo } from "~/components/Logo";
 import UserAuthForm from "~/components/UserAuthForm";
 
+export const runtime = "edge";
+
 export const metadata: Metadata = {
   title: "Login",
   description: "Login to your account",
