@@ -35,7 +35,6 @@ export function Chat({
     append,
     isLoading,
     stop,
-    error,
   } = useChat({
     body: { id, modelId: selectedModelId, companyId },
     initialMessages,
@@ -44,7 +43,6 @@ export function Chat({
       toast.error(err.message);
     },
   });
-  console.log("ERORR", error);
 
   const { data: votes } = useSWR<Vote[]>(`/api/vote?chatId=${id}`, fetcher);
 

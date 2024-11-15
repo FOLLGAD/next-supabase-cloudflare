@@ -38,7 +38,7 @@ export const PreviewMessage = ({
           const { result } = toolInvocation;
 
           return (
-            <Collapsible key={toolCallId} className="group/collapsible">
+            <Collapsible key={toolCallId + "-result"} className="group/collapsible">
               <CollapsibleTrigger className="flex flex-row items-center gap-2">
                 <div className="flex flex-row items-center gap-2">
                   <span className="text-muted-foreground">
