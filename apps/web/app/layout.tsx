@@ -62,8 +62,8 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <TooltipProvider delayDuration={200}>
             <TRPCProvider>
-              <SidebarProvider>
-                <div className="flex h-screen w-full">
+              <div className="flex h-screen w-full">
+                <SidebarProvider>
                   <Sidebar />
 
                   <div className="flex h-full flex-grow flex-col overflow-x-auto p-0">
@@ -72,8 +72,8 @@ export default function RootLayout(props: { children: React.ReactNode }) {
                       {props.children}
                     </div>
                   </div>
-                </div>
-              </SidebarProvider>
+                </SidebarProvider>
+              </div>
             </TRPCProvider>
 
             <Toaster closeButton />

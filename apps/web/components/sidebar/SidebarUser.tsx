@@ -1,4 +1,5 @@
 import { revalidatePath } from "next/cache";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import {
   BadgeCheck,
@@ -27,39 +28,26 @@ import {
 } from "@polaris/ui/dropdown-menu";
 import { ThemeToggle } from "@polaris/ui/theme";
 
-import { loginSocial, logout } from "~/app/(auth)/login/actions";
+import { logout } from "~/app/(auth)/login/actions";
 import { createClient } from "~/app/utils/supabase/server";
 
 export async function SidebarUser() {
   const supabase = await createClient();
   const {
     data: { user },
-    error,
   } = await supabase.auth.getUser();
 
-  const { data: realUser, error: realUserError } = await supabase
+  const { data: realUser } = await supabase
     .from("user")
     .select("*")
     .eq("user_id", user?.id)
     .single<typeof User.$inferSelect>();
 
-  const metadata = user?.user_metadata;
-
   if (!user) {
     return (
-      <form
-        action={async () => {
-          "use server";
-          const url = await loginSocial("google");
-          if (url) {
-            redirect(url);
-          }
-        }}
-      >
-        <Button type="submit" variant="link">
-          Sign in
-        </Button>
-      </form>
+      <Button asChild>
+        <Link href="/login">Sign in</Link>
+      </Button>
     );
   }
   const avatar =
