@@ -13,6 +13,7 @@ import { MultimodalInput } from "./multimodal-input";
 import { Overview } from "./overview";
 import { useScrollToBottom } from "./use-scroll-to-bottom";
 import { fetcher } from "./utils";
+import { toast } from "@polaris/ui/sonner";
 
 export function Chat({
   id,
@@ -34,10 +35,16 @@ export function Chat({
     append,
     isLoading,
     stop,
+    error,
   } = useChat({
     body: { id, modelId: selectedModelId, companyId },
     initialMessages,
+    api: "/api/chat",
+    onError: (err) => {
+      toast.error(err.message);
+    },
   });
+  console.log("ERORR", error);
 
   const { data: votes } = useSWR<Vote[]>(`/api/vote?chatId=${id}`, fetcher);
 
